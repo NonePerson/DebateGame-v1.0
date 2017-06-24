@@ -190,6 +190,9 @@ namespace ConsoleApplication9
                     player.highExplanationRank = player.RankingCalculation(player.ExplanationGamePositive, player.ExplanationGameNegative, 0);
                     stage.Won = true;
                     stage.Locked = true;
+
+                    stage = UpdatingUnlocking(stage, "TRUE", Interaptions);
+
                     Console.WriteLine();
                     Console.WriteLine("You've increased your ranking enough to win this level! You can keep your points");
                     Console.WriteLine();
@@ -202,6 +205,7 @@ namespace ConsoleApplication9
                     {
                         stage.Won = false;
                         stage.Locked = false;
+                        stage = UpdatingUnlocking(stage, "FALSE", Interaptions);
                         Console.WriteLine();
                         player.ExplanationGamePositive = PreviousPositive2;
                         player.ExplanationGameNegative = PreviousNegative2;
@@ -238,6 +242,43 @@ namespace ConsoleApplication9
                 }
             }
             }
+        #endregion
+
+        #region updating unlocking ability
+
+        Stage UpdatingUnlocking(Stage stage, string TrueOrFalse, List<Stage> Interapting)
+        {
+            if (TrueOrFalse.ToUpper() == "TRUE")
+            {
+                stage.unlockable = true;
+                string[] ExplainUnlock = File.ReadAllLines(@"DebateGame\stages\explainunlock.txt");
+                ExplainUnlock[stage.Position - 1] = "True";
+                File.Delete(@"DebateGame\stages\explainunlock.txt");
+                File.WriteAllLines(@"DebateGame\stages\explainunlock.txt", ExplainUnlock);
+
+                string[] InterpationsUnlock = File.ReadAllLines(@"DebateGame\stages\interaptionsunlock.txt");
+                InterpationsUnlock[stage.Position - 1] = "True";
+                File.Delete(@"DebateGame\stages\interaptionsunlock.txt");
+                File.WriteAllLines(@"DebateGame\stages\interaptionsunlock.txt", InterpationsUnlock);
+
+                return stage;
+            }
+            else if (TrueOrFalse.ToUpper() == "FALSE")
+            {
+                stage.unlockable = false;
+                string[] ExplainUnlock = File.ReadAllLines(@"DebateGame\stages\explainunlock.txt");
+                ExplainUnlock[stage.Position - 1] = "False";
+                File.Delete(@"DebateGame\stages\explainunlock.txt");
+                File.WriteAllLines(@"DebateGame\stages\explainunlock.txt", ExplainUnlock);
+
+                string[] InterpationsUnlock = File.ReadAllLines(@"DebateGame\stages\interaptionsunlock.txt");
+                InterpationsUnlock[stage.Position - 1] = "False";
+                File.Delete(@"DebateGame\stages\interaptionsunlock.txt");
+                File.WriteAllLines(@"DebateGame\stages\interaptionsunlock.txt", InterpationsUnlock);
+            }
+            return stage;
+        }
+
         #endregion
 
         #region Tip

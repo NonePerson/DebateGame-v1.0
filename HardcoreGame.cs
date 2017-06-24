@@ -173,6 +173,7 @@ namespace ConsoleApplication9
                             player.highHardcoreRank = player.RankingCalculation(player.hardcoreGamePositivePoints, player.hardcoreGameNegativePoints, 0);
                             stage.Won = true;
                             stage.Locked = true;
+                            stage = UpdatingUnlocking2(stage, "TRUE", Interaptions);
                             Console.WriteLine();
                             Console.WriteLine("You've increased your ranking enough to win this level! You can keep your points");
                             Console.WriteLine();
@@ -185,6 +186,7 @@ namespace ConsoleApplication9
                             {
                                 stage.Won = false;
                                 stage.Locked = false;
+                                stage = UpdatingUnlocking2(stage, "FALSE", Interaptions);
                                 Console.WriteLine();
                                 player.hardcoreGamePositivePoints = PreviousPositive;
                                 player.hardcoreGameNegativePoints = PreviousNegative;
@@ -222,6 +224,47 @@ namespace ConsoleApplication9
                     }
                 
         }
+
+        #endregion
+
+        #region Updating Unlocking
+
+        Stage UpdatingUnlocking2(Stage stage, string TrueOrFalse, List<Stage> Interpating)
+        {
+            if (TrueOrFalse.ToUpper() == "TRUE")
+            {
+                stage.unlockable = true;
+                string[] HardCoreUnlock = File.ReadAllLines(@"DebateGame\stages\hardcoreunlock.txt");
+                HardCoreUnlock[stage.Position - 1] = "True";
+                File.Delete(@"DebateGame\stages\hardcoreunlock.txt");
+                File.WriteAllLines(@"DebateGame\stages\hardcoreunlock.txt", HardCoreUnlock);
+
+                string[] InterpationsUnlock = File.ReadAllLines(@"DebateGame\stages\interaptionsunlock.txt");
+                InterpationsUnlock[stage.Position - 1] = "True";
+                File.Delete(@"DebateGame\stages\interaptionsunlock.txt");
+                File.WriteAllLines(@"DebateGame\stages\interaptionsunlock.txt", InterpationsUnlock);
+
+                return stage;
+            }
+            else if (TrueOrFalse.ToUpper() == "FALSE")
+            {
+                stage.unlockable = false;
+                string[] HardCoreUnlock = File.ReadAllLines(@"DebateGame\stages\hardcoreunlock.txt");
+                HardCoreUnlock[stage.Position - 1] = "False";
+                File.Delete(@"DebateGame\stages\hardcoreunlock.txt");
+                File.WriteAllLines(@"DebateGame\stages\hardcoreunlock.txt", HardCoreUnlock);
+
+                string[] InterpationsUnlock = File.ReadAllLines(@"DebateGame\stages\interaptionsunlock.txt");
+                InterpationsUnlock[stage.Position - 1] = "False";
+                File.Delete(@"DebateGame\stages\interaptionsunlock.txt");
+                File.WriteAllLines(@"DebateGame\stages\interaptionsunlock.txt", InterpationsUnlock);
+            }
+            return stage;
+        }
+
+        #endregion
+
+        #region Tips
 
         public void Tip(Player player)
         {

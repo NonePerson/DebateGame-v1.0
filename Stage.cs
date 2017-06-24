@@ -23,52 +23,75 @@ namespace ConsoleApplication9
             this.Won = false;
             KeyForLevel = new ConsoleKey();
             DataBase = new XDocument();
+            Position = position;
             this.diffculty = diffculty;
             this.NormalRankCondition = 0;
             this.HardcoreRankCondition = 0;
             this.ExplainRankCondition = 0;
             this.mode = place;
-            Won = mod(position, place);
+            MaxPoints = 0;
+            Won = mod(position, place, "won");
+            unlockable = mod(position, place, "unlock");
             #endregion
-
-
         }
         #endregion
-        public static bool mod(int position, string place)
+        public static bool mod(int position, string place, string propertie)
         {
             string stage;
             switch (place.ToUpper())
             { 
                 case "G":
-                    for (int i = 0; i < 10; i++)
-                    {
-                        if (position - 1 == i)
+                        for (int i = 0; i < 10; i++)
                         {
-                            stage = File.ReadAllText($@"DebateGame\stages\normal\normal{i}.txt");
-                            return bool.Parse(stage);
-                        }  
-                    }
+                            if (position - 1 == i)
+                            {
+                                stage = File.ReadAllText($@"DebateGame\stages\normal\normal{i}.txt");
+                                return bool.Parse(stage);
+                            }
+                        }
                     break;
                 case "E":
-                    for (int i = 0; i < 10; i++)
+                    if (propertie == "won")
                     {
-                        if (position - 1 == i)
+                        for (int i = 0; i < 10; i++)
                         {
-                            stage = File.ReadAllText($@"DebateGame\stages\explain\explain{i}.txt");
-                            return bool.Parse(stage);
+                            if (position - 1 == i)
+                            {
+                                stage = File.ReadAllText($@"DebateGame\stages\explain\explain{i}.txt");
+                                return bool.Parse(stage);
+                            }
                         }
+                    }
+                    else if (propertie == "unlock")
+                    {
+                        string[] stages = File.ReadAllLines($@"DebateGame\stages\explainunlock.txt");
+                        string TheStage = stages[position - 1];
+                        return bool.Parse(TheStage);
                     }
                     break;
                 case "H":
-                    for (int i = 0; i < 10; i++)
+                    if (propertie == "won")
                     {
-                        if (position - 1 == i)
+                        for (int i = 0; i < 10; i++)
                         {
-                            stage = File.ReadAllText($@"DebateGame\stages\hardcore\hardcore{i}.txt");
-                            return bool.Parse(stage);
+                            if (position - 1 == i)
+                            {
+                                stage = File.ReadAllText($@"DebateGame\stages\hardcore\hardcore{i}.txt");
+                                return bool.Parse(stage);
+                            }
                         }
                     }
+                    else if (propertie == "unlock")
+                    {
+                        string[] stages = File.ReadAllLines($@"DebateGame\stages\hardcoreunlock.txt");
+                        string TheStage = stages[position - 1];
+                        return bool.Parse(TheStage);
+                    }
                     break;
+                case "I":
+                    string[] stages2 = File.ReadAllLines($@"DebateGame\stages\interaptionsunlock.txt");
+                    string TheStage2 = stages2[position - 1];
+                    return bool.Parse(TheStage2);
             }
 
             return false;
@@ -83,8 +106,10 @@ namespace ConsoleApplication9
         public double NormalRankCondition { get; set; }
         public double HardcoreRankCondition { get; set; }
         public double ExplainRankCondition { get; set; }
-
+        public double MaxPoints { get; set; }
         public string mode { get; set; }
+        public bool unlockable { get; set; }
+        public int Position { get; set; }
         #endregion
     }
 }
