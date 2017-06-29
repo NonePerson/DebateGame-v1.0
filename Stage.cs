@@ -89,9 +89,13 @@ namespace ConsoleApplication9
                     }
                     break;
                 case "I":
-                    string[] stages2 = File.ReadAllLines($@"DebateGame\stages\interaptionsunlock.txt");
-                    string TheStage2 = stages2[position - 1];
-                    return bool.Parse(TheStage2);
+                    if (propertie == "unlock")
+                    {
+                        string[] stages2 = File.ReadAllLines($@"DebateGame\stages\interaptionsunlock.txt");
+                        string TheStage2 = stages2[position - 1];
+                        return bool.Parse(TheStage2);
+                    }
+                    break;
             }
 
             return false;

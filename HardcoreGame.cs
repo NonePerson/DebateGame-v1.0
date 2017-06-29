@@ -204,7 +204,7 @@ namespace ConsoleApplication9
                         NegativeGap.Add(player.hardcoreGameNegativePoints[i] - PreviousNegative[i]);
                         File.WriteAllText(($@"DebateGame\player\previouspoints\negativeHardcore{stage.Name}{i}.txt"), NegativeGap[i].ToString());
                     }
-                    Tip(player);
+                    Tip(player, HardcoreLevels, NormalLevels, ExplainLevels, Interaptions, stage);
                     Return(NewGame, player, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions, "m");
 
                         }
@@ -266,11 +266,58 @@ namespace ConsoleApplication9
 
         #region Tips
 
-        public void Tip(Player player)
+        public void Tip(Player player, List<Stage> stages, List<Stage> Normal, List<Stage> Explain, List<Stage> Interapt, Stage currectStage)
         {
-            if (player.highHardcoreRank >= 12.5)
+            ChooseGame(stages, player, Normal, Explain, stages, Interapt);
+            Console.Clear();
+            bool InteraptUnlocked = false;
+            bool isOneWon = true;
+            bool isThirdWon = true;
+            foreach(Stage stageH in stages)
+            {
+                if(stageH.Won && stageH.diffculty > 1)
+                {
+                    isOneWon = false;
+                }
+                if(!stageH.Won && stageH.diffculty == 1)
+                {
+                    isOneWon = false;
+                }
+                if(stageH.Won && stageH.diffculty > 3)
+                {
+                    isThirdWon = false;
+                }
+                if(!stageH.Won && stageH.diffculty <= 3)
+                {
+                    isThirdWon = false;
+                }
+                  
+            }
+            foreach (Stage stageE in Explain)
+            {
+                if ((stageE.Name == currectStage.Name) && (stageE.Won && stageE.unlockable))
+                {
+                    if(currectStage.Won && currectStage.unlockable)
+                    {
+                        InteraptUnlocked = true;
+                    }
+                }
+            }
+            if (player.highHardcoreRank >= 9)
             {
                 PrintFile(@"DebateGame\Tips\TIP5.txt", @"DebateGame\Tips\TIP5DONE.txt");
+            }
+            if(isOneWon)
+            {
+                PrintFile(@"DebateGame\Tips\TIP8.txt", @"DebateGame\Tips\TIP8DONE.txt");
+            }
+            if(isThirdWon)
+            {
+                PrintFile(@"DebateGame\Tips\TIP12.txt", @"DebateGame\Tips\TIP12DONE.txt");
+            }
+            if(InteraptUnlocked)
+            {
+                PrintFile(@"DebateGame\Tips\TIP13.txt", @"DebateGame\Tips\TIP13DONE.txt");
             }
         }
         public void PrintFile(string path, string createPath)

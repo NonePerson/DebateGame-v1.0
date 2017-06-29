@@ -64,7 +64,7 @@ namespace ConsoleApplication9
 
             Stage MindBody = new Stage("The mind-body problem", 2, 6, "G");
             MindBody.KeyForLevel = ConsoleKey.T;
-            MindBody.DataBase = XDocument.Load(@"C:\Users\work\Desktop\DebateGameUpdated\bin\Debug\DebateGame\normalGame\level 2\mind body\mindbody.xml");
+            MindBody.DataBase = XDocument.Load(@"DebateGame\normalGame\level 2\mind body\mindbody.xml");
             stages.Add(MindBody);
 
             Stage Freedom = new Stage("Freedom", 3, 7, "G");
@@ -507,7 +507,7 @@ namespace ConsoleApplication9
                         stage.Locked = true;
                         Console.WriteLine(stage.Name + " (Locked) " + " (You haven't choosen to unlock this level yet)");
                         Console.WriteLine();
-                        Console.WriteLine("(press " + stage.KeyForLevel.ToString() + " to unlock this level");
+                        Console.WriteLine("(press " + stage.KeyForLevel.ToString() + " to unlock this level)");
                         Console.WriteLine();
                         Console.WriteLine();
                         
@@ -1229,9 +1229,9 @@ namespace ConsoleApplication9
                 {
                     File.Delete(@"DebateGame\Messages\complete.txt");
                 }
-                if (File.Exists(@"DebateGame\Messages\unlock.text"))
+                if (File.Exists(@"DebateGame\Messages\unlock.txt"))
                 {
-                    File.Delete(@"DebateGame\Messages\unlock.text");
+                    File.Delete(@"DebateGame\Messages\unlock.txt");
                 }
                 for(int i = 1; i < 20; i++)
                 {
@@ -1315,14 +1315,7 @@ namespace ConsoleApplication9
                 InterpationsScroll manual = new InterpationsScroll(stage, player1, NewGame);
                 manual.next(NewGame, player1, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions);
             }
-            else if (mainInput.ToUpper() == "T")
-            {
-                Stage stage = new Stage("", 0, 1, "A");
-                stage.DataBase = XDocument.Load(@"DebateGame\Turtorial.xml");
-                NewGame.position = PlayerPosition.Reading.ToString();
-                InterpationsScroll turtorial = new InterpationsScroll(stage, player1, NewGame);
-                turtorial.next(NewGame, player1, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions);
-            }
+            
             else if(mainInput.ToUpper() == "QUIT")
             {
                 Quit(player1, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions, "QUIT");

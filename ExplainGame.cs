@@ -223,7 +223,7 @@ namespace ConsoleApplication9
                         NegativeGap.Add(player.ExplanationGameNegative[i] - PreviousNegative2[i]);
                         File.WriteAllText(($@"DebateGame\player\previouspoints\negativeExplain{stage.Name}{i}.txt"), NegativeGap[i].ToString());
                     }
-                    Tip(player);
+                    Tip(player, ExplainLevels);
                     Return(NewGame, player, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions, "m");
 
                 }
@@ -282,15 +282,40 @@ namespace ConsoleApplication9
         #endregion
 
         #region Tip
-        public void Tip(Player player)
+        public void Tip(Player player, List<Stage> stages)
         {
-            if (player.highExplanationRank >= 8)
+            int count = 0;
+            bool secondStages = true;
+            foreach(Stage stageE in stages)
+            {
+                if(stageE.Won)
+                {
+                    count++;
+                }
+                if(stageE.Won && stageE.diffculty > 2)
+                {
+                    secondStages = false;
+                }
+                if(!stageE.Won && stageE.diffculty <= 2)
+                {
+                    secondStages = false;
+                }
+            }
+            if(count == 2)
+            {
+                PrintFile(@"DebateGame\Tips\TIP7.txt", @"DebateGame\Tips\TIP7DONE.txt");
+            }
+            if (secondStages)
             {
                 PrintFile(@"DebateGame\Tips\TIP3.txt", @"DebateGame\Tips\TIP3DONE.txt");
             }
-            if(player.highExplanationRank >= 22)
+            if(player.highExplanationRank >= 6)
             {
                 PrintFile(@"DebateGame\Tips\TIP4.txt", @"DebateGame\Tips\TIP4DONE.txt");
+            }
+            if(count == stages.Count)
+            {
+                PrintFile(@"DebateGame\Tips\TIP6.txt", @"DebateGame\Tips\TIP6DONE.txt");
             }
         }
         public void PrintFile(string path, string createPath)

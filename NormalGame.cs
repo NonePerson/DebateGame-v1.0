@@ -160,7 +160,7 @@ namespace ConsoleApplication9
                             if (state.Value == "GameWon")
                             {
                                 Console.ReadLine();
-                                Tip(player);
+                                Tip(player, NormalLevels);
                                 if (isBonusNotPassed == "Yes")
                                 {
                                     Console.Clear();
@@ -213,15 +213,41 @@ namespace ConsoleApplication9
         }
         #endregion
         #region Tip
-        public void Tip(Player player)
+        public void Tip(Player player, List<Stage> normal)
         {
-            if (player.highNormalRank >= 2.75)
+            if (player.highNormalRank >= 2)
             {
-                PrintFile(@"DebateGame\Tips\TIP1.txt", @"DebateGame\Tips\TIP1DONE.txt");
+                PrintFile(@"DebateGame\Tips\TIP10.txt", @"DebateGame\Tips\TIP10DONE.txt");
             }
-            if (player.highNormalRank >= 8.3)
+            if (player.highNormalRank >= 5)
+            {
+                PrintFile(@"DebateGame\Tips\TIP9.txt", @"DebateGame\Tips\TIP9DONE.txt");
+            }
+            int count = 0;
+            bool isElseWon = false;
+            int OneWon = 0;
+            foreach(Stage stage in normal)
+            {
+                if(stage.Won)
+                {
+                    count++;
+                }
+                if(stage.Won && stage.diffculty > 1)
+                {
+                    isElseWon = true;
+                }
+                if(stage.Won && stage.diffculty == 1)
+                {
+                    OneWon = OneWon + 1;
+                }
+            }
+            if ((count / player.highNormalRank) > 2.5) 
             {
                 PrintFile(@"DebateGame\Tips\TIP2.txt", @"DebateGame\Tips\TIP2DONE.txt");
+            }
+            if(OneWon == 3 && !isElseWon)
+            {
+                PrintFile(@"DebateGame\Tips\TIP1.txt", @"DebateGame\Tips\TIP1DONE.txt");
             }
         }
         public void PrintFile(string path, string createPath)
