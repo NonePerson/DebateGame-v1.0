@@ -114,43 +114,43 @@ namespace ConsoleApplication9
             Stage Homeopathy = new Stage("Homeopathy", 2, 4, "H");
             Homeopathy.KeyForLevel = ConsoleKey.H;
             Homeopathy.DataBase = XDocument.Load(@"DebateGame\hardcoreGame\level 2\Homeopathy\HomeopathyHardcore.xml");
-            Homeopathy.HardcoreRankCondition = 2.25;
+            Homeopathy.HardcoreRankCondition = 1.8;
             stages.Add(Homeopathy);
 
             Stage Intelligence = new Stage("Intelligence", 2, 5, "H");
             Intelligence.KeyForLevel = ConsoleKey.I;
             Intelligence.DataBase = XDocument.Load(@"DebateGame\hardcoreGame\level 2\Intelligence\IntelligenceHardcore.xml");
-            Intelligence.HardcoreRankCondition = 2.25;
+            Intelligence.HardcoreRankCondition = 1.8;
             stages.Add(Intelligence);
 
             Stage MindBody = new Stage("The mind-body problem", 2, 6, "H");
             MindBody.KeyForLevel = ConsoleKey.T;
             MindBody.DataBase = XDocument.Load(@"DebateGame\hardcoreGame\level 2\mind body\mindbody.xml");
-            MindBody.HardcoreRankCondition = 2.25;
+            MindBody.HardcoreRankCondition = 1.8;
             stages.Add(MindBody);
 
             Stage freedom = new Stage("Freedom", 3, 7, "H");
             freedom.KeyForLevel = ConsoleKey.F;
             freedom.DataBase = XDocument.Load(@"DebateGame\hardcoreGame\level 3\Freedom\FreedomHardcore.xml");
-            freedom.HardcoreRankCondition = 7.25;
+            freedom.HardcoreRankCondition = 4.8;
             stages.Add(freedom);
 
             Stage HowHappy = new Stage("Happiness and suffering", 3, 8, "H");
             HowHappy.KeyForLevel = ConsoleKey.H;
             HowHappy.DataBase = XDocument.Load(@"DebateGame\hardcoreGame\level 3\HowHappy\HowHappyHardcore.xml");
-            HowHappy.HardcoreRankCondition = 7.25;
+            HowHappy.HardcoreRankCondition = 4.8;
             stages.Add(HowHappy);
 
             Stage Reason = new Stage("Reason", 4, 9, "H");
             Reason.KeyForLevel = ConsoleKey.R;
             Reason.DataBase = XDocument.Load(@"DebateGame\hardcoreGame\level 4\Reason\ReasonHardcore.xml");
-            Reason.HardcoreRankCondition = 11.9;
+            Reason.HardcoreRankCondition = 7.6;
             stages.Add(Reason);
 
             Stage Freewill = new Stage("Psychology of free will", 4, 10, "H");
             Freewill.KeyForLevel = ConsoleKey.P;
             Freewill.DataBase = XDocument.Load(@"DebateGame\hardcoreGame\level 4\Free will\FreeWillHardcore.xml");
-            Freewill.HardcoreRankCondition = 11.9;
+            Freewill.HardcoreRankCondition = 7.6;
             stages.Add(Freewill);
             
             return stages;
@@ -182,43 +182,43 @@ namespace ConsoleApplication9
             Stage Homeopathy = new Stage("Homeopathy", 2, 4, "E");
             Homeopathy.KeyForLevel = ConsoleKey.H;
             Homeopathy.DataBase = XDocument.Load(@"DebateGame\ExplainGame\level 2\Homeopathy\Homeopathy.xml");
-            Homeopathy.ExplainRankCondition = 2;
+            Homeopathy.ExplainRankCondition = 0.95;
             stages.Add(Homeopathy);
 
             Stage Intelligence = new Stage("Intelligence", 2, 5, "E");
             Intelligence.KeyForLevel = ConsoleKey.I;
             Intelligence.DataBase = XDocument.Load(@"DebateGame\ExplainGame\level 2\Intelligence\Intelligence.xml");
-            Intelligence.ExplainRankCondition = 1;
+            Intelligence.ExplainRankCondition = 0.95;
             stages.Add(Intelligence);
 
             Stage MindBody = new Stage("The mind-body problem", 2, 6, "E");
             MindBody.KeyForLevel = ConsoleKey.T;
             MindBody.DataBase = XDocument.Load(@"DebateGame\ExplainGame\level 2\mind body\mindbody.xml");
-            MindBody.ExplainRankCondition = 1;
+            MindBody.ExplainRankCondition = 0.95;
             stages.Add(MindBody);
 
             Stage Freedom = new Stage("Freedom", 3, 7, "E");
             Freedom.KeyForLevel = ConsoleKey.F;
             Freedom.DataBase = XDocument.Load(@"DebateGame\ExplainGame\level 3\Freedom\Freedom.xml");
-            Freedom.ExplainRankCondition = 4.25;
+            Freedom.ExplainRankCondition = 3;
             stages.Add(Freedom);
 
             Stage HowHappy = new Stage("Happiness and suffering", 3, 8, "E");
             HowHappy.KeyForLevel = ConsoleKey.H;
             HowHappy.DataBase = XDocument.Load(@"DebateGame\ExplainGame\level 3\HowHappy\HowHappy.xml");
-            HowHappy.ExplainRankCondition = 4.25;
+            HowHappy.ExplainRankCondition = 3;
             stages.Add(HowHappy);
 
             Stage Reason = new Stage("Reason", 4, 9, "E");
             Reason.KeyForLevel = ConsoleKey.R;
             Reason.DataBase = XDocument.Load(@"DebateGame\ExplainGame\level 4\Reason\Reason.xml");
-            Reason.ExplainRankCondition = 7.5;
+            Reason.ExplainRankCondition = 5;
             stages.Add(Reason);
 
             Stage Freewill = new Stage("Psychology of free will", 4, 10, "E");
             Freewill.KeyForLevel = ConsoleKey.P;
             Freewill.DataBase = XDocument.Load(@"DebateGame\ExplainGame\level 4\FreeWill\FreeWill.xml");
-            Freewill.ExplainRankCondition = 7.5;
+            Freewill.ExplainRankCondition = 5;
             stages.Add(Freewill);
 
             return stages;
@@ -837,7 +837,6 @@ namespace ConsoleApplication9
                 default:
                     Console.WriteLine("enter a number between 1-5 only");
                     string input = Console.ReadLine();
-                    Quit(player1, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions, input);
                     Return(NewGame, player1, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions, input);
                     levelchoose(NewGame, player1, Levels, input, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions, mode);
                     break;
@@ -845,9 +844,7 @@ namespace ConsoleApplication9
                 Console.Clear();
                 ChooseGame(lvlStages, player1, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions);
                 MainMeunMessage();
-                QuitMessage();
                 string mainInput = Console.ReadLine();
-                Quit(player1, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions, mainInput);
                 Return(NewGame, player1, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions, mainInput);
                 foreach (Stage stage in lvlStages)
                 {
@@ -923,12 +920,15 @@ namespace ConsoleApplication9
                             }
                             if (mode == "Interaptions")
                             {
-                                // you can add a condition here that checks if the player already saw the intro text file
+                            if(File.Exists(@"DebateGame\InterpationFirstTime.txt"))
+                            {
                                 Console.Clear();
                                 WritingText(@"DebateGame\Interaptions\intro.txt");
                                 Console.ReadLine();
+                                File.Delete(@"DebateGame\InterpationFirstTime.txt");
+                            }
                                 InterpationsScroll interaptionsScroll = new InterpationsScroll(stage, player1, NewGame);
-                                interaptionsScroll.next(NewGame, player1, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions);
+                                interaptionsScroll.next(NewGame, player1, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions, stage);
                             }
                         }
                     if ((stage.Locked) && (stage.Won))
@@ -1103,7 +1103,7 @@ namespace ConsoleApplication9
             }
         }
 
-            unlocking = (player1.highExplanationRank >= 7.5 && player1.highHardcoreRank >= 11.9);
+            unlocking = (player1.highExplanationRank >= 5 && player1.highHardcoreRank >= 7.6);
 
         if ((unlocking) &&
             (!(File.Exists(@"DebateGame\Messages\unlock.txt"))))
@@ -1158,9 +1158,7 @@ namespace ConsoleApplication9
             NewGame.position = PlayerPosition.Diffculty.ToString();
             WritingText(@"DebateGame\diffculty.txt");
             MainMeunMessage();
-            QuitMessage();
             mainInput = Console.ReadLine();
-            Quit(player1, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions, mainInput);
             Return(NewGame, player1, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions, mainInput);
             levelchoose(NewGame, player1, NormalLevels, mainInput, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions, mode);
         }                                                                                                                     
@@ -1172,9 +1170,7 @@ namespace ConsoleApplication9
             NewGame.position = PlayerPosition.Diffculty.ToString();
             WritingText(@"DebateGame\diffculty.txt");
             MainMeunMessage();
-            QuitMessage();
             mainInput = Console.ReadLine();
-            Quit(player1, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions, mainInput);
             Return(NewGame, player1, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions, mainInput);
             levelchoose(NewGame, player1, HardcoreLevels, mainInput, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions, mode);
         }
@@ -1185,9 +1181,7 @@ namespace ConsoleApplication9
             NewGame.position = PlayerPosition.Diffculty.ToString();
             WritingText(@"DebateGame\diffculty.txt");
             MainMeunMessage();
-            QuitMessage();
             mainInput = Console.ReadLine();
-            Quit(player1, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions, mainInput);
             Return(NewGame, player1, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions, mainInput);
             levelchoose(NewGame, player1, ExplainLevels, mainInput, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions, mode);
         }
@@ -1199,9 +1193,7 @@ namespace ConsoleApplication9
             NewGame.position = PlayerPosition.Diffculty.ToString();
             WritingText(@"DebateGame\diffculty.txt");
             MainMeunMessage();
-            QuitMessage();
             mainInput = Console.ReadLine();
-            Quit(player1, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions, mainInput);
             Return(NewGame, player1, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions, mainInput);
             levelchoose(NewGame, player1, Interaptions, mainInput, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions, mode);
         }
@@ -1212,9 +1204,7 @@ namespace ConsoleApplication9
             NewGame.position = PlayerPosition.Reading.ToString();
             ViewPlayerStatus(player1);
             MainMeunMessage();
-            QuitMessage();
             mainInput = Console.ReadLine();
-            Quit(player1, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions, mainInput);
             Return(NewGame, player1, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions, "m");
         }
         else if(mainInput.ToUpper() == "R")
@@ -1233,6 +1223,12 @@ namespace ConsoleApplication9
                 {
                     File.Delete(@"DebateGame\Messages\unlock.txt");
                 }
+                if(!(File.Exists(@"DebateGame\InterpationFirstTime.txt")))
+                {
+                    var creation = File.Create(@"DebateGame\InterpationFirstTime.txt");
+                    creation.Close();
+                }
+                    
                 for(int i = 1; i < 20; i++)
                 {
                     if(File.Exists($@"DebateGame\Tips\TIP{i}DONE.txt"))
@@ -1313,12 +1309,12 @@ namespace ConsoleApplication9
                 stage.DataBase = XDocument.Load(@"DebateGame\Manual.xml");
                 NewGame.position = PlayerPosition.Reading.ToString();
                 InterpationsScroll manual = new InterpationsScroll(stage, player1, NewGame);
-                manual.next(NewGame, player1, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions);
+                manual.next(NewGame, player1, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions, stage);
             }
             
-            else if(mainInput.ToUpper() == "QUIT")
+            else if(mainInput.ToUpper() == "S")
             {
-                Quit(player1, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions, "QUIT");
+                Save(NewGame, player1, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions, "S");
             }
 
             else
@@ -1331,32 +1327,30 @@ namespace ConsoleApplication9
 
         #endregion
 
-        #region console exit
+        #region console save
         
-        public static void Quit(Player player, List<Stage> NormalLevels, List<Stage> ExplainLevels, List<Stage> HardcoreLevels, List<Stage> Interaptions, string input)
+        public static void Save(Game NewGame, Player player, List<Stage> NormalLevels, List<Stage> ExplainLevels, List<Stage> HardcoreLevels, List<Stage> Interaptions, string input)
         {
-            if (input.ToUpper() == "QUIT")
+            if (input.ToUpper() == "S")
             {
-                string num = File.ReadAllText(@"DebateGame\attempts\attempt.txt");
-                File.WriteAllText(@"DebateGame\attempts\attempt.txt", (num.ToString()));
                 WritingPlayer(player);
                 WritingStages(NormalLevels, ExplainLevels, HardcoreLevels, Interaptions);
                 Console.Clear();
                 Console.WriteLine("Your advancement in the game has been saved");
                 Console.WriteLine();
-                Console.WriteLine("Press any key to exit");
+                Console.WriteLine("Press any key to return to the main meun");
                 Console.ReadLine();
-                Environment.Exit(0);
+                MainMeun(NewGame, player, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions);
             }
         }
-
+        /*
         public static void QuitMessage()
         {
             Console.WriteLine();
             Console.WriteLine("Input 'quit' to exit the game without losing your progres");
             Console.WriteLine();
         }
-
+        */
         public static void WritingPlayer(Player player)
         {
             string[] normalGamePositive = new string[player.normalGamePositivePoints.Count()];

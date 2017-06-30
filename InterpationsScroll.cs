@@ -22,16 +22,19 @@ namespace ConsoleApplication9
         }
         #endregion
         #region The actual function
-        public void next(Game NewGame, Player player, List<Stage> NormalLevels, List<Stage> ExplainLevels, List<Stage> HardcoreLevels, List<Stage> Interaptions)
+        public void next(Game NewGame, Player player, List<Stage> NormalLevels, List<Stage> ExplainLevels, List<Stage> HardcoreLevels, List<Stage> Interaptions, Stage stageI)
         {
             Console.Clear();
             WritingText(path.Value);
             Console.WriteLine();
             Console.WriteLine("Press 'U' to go to the next screen, or D to go to the previous screen");
             Console.WriteLine();
-            Console.WriteLine("In order to view the list of moves for hardcore mode, press H");
-            Console.WriteLine();
-            Console.WriteLine("In order to view the list of point categories with their numbers, press E");
+            if (stageI.mode.ToUpper() == "I")
+            {
+                Console.WriteLine("In order to view the list of moves for hardcore mode, press H");
+                Console.WriteLine();
+                Console.WriteLine("In order to view the list of point categories with their numbers, press E");
+            }
             MainMeunMessage();
             Console.WriteLine();
             input = Console.ReadLine();
@@ -45,25 +48,31 @@ namespace ConsoleApplication9
                     path = recentScreen.Element("NextScreen");
                     break;
                 case "H":
-                    Console.Clear();
-                    WritingText(@"DebateGame\hardcoreGame\intro.txt");
-                    Console.WriteLine();
-                    Console.WriteLine("Press any key to go back to the stage");
-                    Console.WriteLine();
-                    Console.ReadLine();
-                    next(NewGame, player, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions);
+                    if (stageI.mode.ToUpper() == "I")
+                    {
+                        Console.Clear();
+                        WritingText(@"DebateGame\hardcoreGame\intro.txt");
+                        Console.WriteLine();
+                        Console.WriteLine("Press any key to go back to the stage");
+                        Console.WriteLine();
+                        Console.ReadLine();
+                        next(NewGame, player, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions, stageI);
+                    }
                     break;
                case "E":
-                    Console.Clear();
-                    WritingText(@"DebateGame\ExplainGame\list.txt");
-                    Console.WriteLine();
-                    Console.WriteLine("Press any key to go back to the stage");
-                    Console.WriteLine();
-                    Console.ReadLine();
-                    next(NewGame, player, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions);
+                    if (stageI.mode.ToUpper() == "I")
+                    {
+                        Console.Clear();
+                        WritingText(@"DebateGame\ExplainGame\list.txt");
+                        Console.WriteLine();
+                        Console.WriteLine("Press any key to go back to the stage");
+                        Console.WriteLine();
+                        Console.ReadLine();
+                        next(NewGame, player, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions, stageI);
+                    }
                     break;
                 default:
-                    next(NewGame, player, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions);
+                    next(NewGame, player, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions, stageI);
                     break;
             }
             if(path.Value == "")
@@ -77,7 +86,7 @@ namespace ConsoleApplication9
                     recentScreen = screen;
                 }
             }
-            next(NewGame, player, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions);
+            next(NewGame, player, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions, stageI);
         }
         // Return(NewGame, player, NormalLevels, HardcoreLevels, Interaptions, oneInput);
         #endregion

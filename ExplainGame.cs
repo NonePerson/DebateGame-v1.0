@@ -28,13 +28,21 @@ namespace ConsoleApplication9
             theTrue = new List<int>();
             RecentPositive = new List<int>();
             RecentNegative = new List<int>();
+            DefaultPositive = new List<int>();
+            DefaultNegative = new List<int>();
+            RecentDefaultPositive = new List<int>();
+            RecentDefaultNegative = new List<int>();
             foreach (int cell in player.ExplanationGamePositive)
             {
                 RecentPositive.Add(cell);
+                DefaultPositive.Add(0);
+                RecentDefaultPositive.Add(0);
             }
             foreach (int cell in player.ExplanationGameNegative)
             {
                 RecentNegative.Add(cell);
+                DefaultNegative.Add(0);
+                RecentDefaultNegative.Add(0);
             }
             comment = recentScreen.Element("Comment");
             SecretPath = recentScreen.Element("SecretPath");
@@ -108,10 +116,12 @@ namespace ConsoleApplication9
                     for (int cell = 0; cell < RecentPositive.Count(); cell++)
                     {
                         player.ExplanationGamePositive[cell] = RecentPositive[cell];
+                        DefaultPositive[cell] = RecentDefaultPositive[cell];
                     }
                     for (int cell = 0; cell < RecentNegative.Count(); cell++)
                     {
                         player.ExplanationGameNegative[cell] = RecentNegative[cell];
+                        DefaultNegative[cell] = RecentDefaultNegative[cell];
                     }
 
                     path = recentScreen.Element("PreviousScreen");
@@ -126,6 +136,8 @@ namespace ConsoleApplication9
                     answers = answerElement.Elements("Answer");
                     state = recentScreen.Element("State");
                     ANum = recentScreen.Element("ANum");
+                    comment = recentScreen.Element("Comment");
+                    SecretPath = recentScreen.Element("SecretPath");
                     next(stage, player, NewGame, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions, PreviousPositive2, PreviousNegative2);
 
                 }
@@ -142,15 +154,19 @@ namespace ConsoleApplication9
             for (int cell = 0; cell < player.ExplanationGamePositive.Count(); cell++)
             {
                 RecentPositive[cell] = player.ExplanationGamePositive[cell];
+                RecentDefaultPositive[cell] = DefaultPositive[cell];
             }
             for (int cell = 0; cell < player.ExplanationGameNegative.Count(); cell++)
             {
                 RecentNegative[cell] = player.ExplanationGameNegative[cell];
+                RecentDefaultNegative[cell] = DefaultNegative[cell];
             }
             if (int.Parse(ANum.Value) > 0)
             {
                 player.ExplanationGamePositive = apply.UpdatingPositivePoints(input, theTrue, player.ExplanationGamePositive, player.ExplanationGameNegative, "E");
                 player.ExplanationGameNegative = apply.UpdatingNegativePoints(input, theTrue, player.ExplanationGamePositive, player.ExplanationGameNegative, "E");
+                DefaultPositive = apply.UpdatingPositivePoints(input, theTrue, DefaultPositive, DefaultNegative, "E");
+                DefaultNegative = apply.UpdatingNegativePoints(input, theTrue, DefaultPositive, DefaultNegative, "E");
             }
             #region loading the next screen
             if (state.Value == "MiddleGame")
@@ -176,15 +192,14 @@ namespace ConsoleApplication9
             {
                 Console.Clear();
                 Console.WriteLine();
-                Console.WriteLine("You've passed all the screens for this level in this mode.");
+                Console.WriteLine("You've passed all the screens for this stage in this mode.");
                 Console.WriteLine();
                 XElement ranking = new XElement(recentScreen.Element("Ranking"));
-                double gap = player.RankingCalculation(player.ExplanationGamePositive, player.ExplanationGameNegative, 0) -
-                    player.RankingCalculation(PreviousPositive2, PreviousNegative2, 0);
+                double gap = player.RankingCalculation(DefaultPositive, DefaultNegative, 0);
                 Console.WriteLine();
-                Console.WriteLine($"To win, you need to increase your ranking from this level");
-                Console.WriteLine($"by at least {ranking.Value} points.");
-                Console.WriteLine($"While you've increased your ranking by {gap} points.");
+                Console.WriteLine($"To win, you need to get a ranking from this stage");
+                Console.WriteLine($"of at least {ranking.Value} points.");
+                Console.WriteLine($"While you've got a ranking here of {gap} points.");
                 if (gap >= double.Parse(ranking.Value))
                 {
                     player.highExplanationRank = player.RankingCalculation(player.ExplanationGamePositive, player.ExplanationGameNegative, 0);
@@ -194,10 +209,10 @@ namespace ConsoleApplication9
                     stage = UpdatingUnlocking(stage, "TRUE", Interaptions);
 
                     Console.WriteLine();
-                    Console.WriteLine("You've increased your ranking enough to win this level! You can keep your points");
+                    Console.WriteLine("You've gotten a ranking high enough to win this stage! You can keep your points");
                     Console.WriteLine();
-                    Console.WriteLine("You can reset the points you've gotten in this level");
-                    Console.WriteLine("if you want and keep this level unlocked, thought. Press R to do so.");
+                    Console.WriteLine("You can reset the points you've gotten in this stage");
+                    Console.WriteLine("if you want and keep this stage unlocked, thought. Press R to do so.");
                     Console.WriteLine();
                     Console.WriteLine("Press M to return to the main meun");
                     string reset = Console.ReadLine();
@@ -285,6 +300,7 @@ namespace ConsoleApplication9
         public void Tip(Player player, List<Stage> stages)
         {
             int count = 0;
+            bool firstStages = true;
             bool secondStages = true;
             foreach(Stage stageE in stages)
             {
@@ -296,12 +312,20 @@ namespace ConsoleApplication9
                 {
                     secondStages = false;
                 }
+                if(stageE.Won && stageE.diffculty > 1)
+                {
+                    firstStages = false;
+                }
                 if(!stageE.Won && stageE.diffculty <= 2)
                 {
                     secondStages = false;
                 }
+                if(!stageE.Won && stageE.diffculty == 1)
+                {
+                    firstStages = false;
+                }
             }
-            if(count == 2)
+            if(count == 1)
             {
                 PrintFile(@"DebateGame\Tips\TIP7.txt", @"DebateGame\Tips\TIP7DONE.txt");
             }
@@ -316,6 +340,10 @@ namespace ConsoleApplication9
             if(count == stages.Count)
             {
                 PrintFile(@"DebateGame\Tips\TIP6.txt", @"DebateGame\Tips\TIP6DONE.txt");
+            }
+            if(firstStages)
+            {
+                PrintFile(@"DebateGame\Tips\TIP14.txt", @"DebateGame\Tips\TIP14DONE.txt");
             }
         }
         public void PrintFile(string path, string createPath)
@@ -351,6 +379,10 @@ namespace ConsoleApplication9
         HardcoreGameAnswers apply { get; set; }
         List<int> RecentPositive { get; set; }
         List<int> RecentNegative { get; set; }
+        List<int> DefaultPositive { get; set; }
+        List<int> DefaultNegative { get; set; }
+        List<int> RecentDefaultPositive { get; set; }
+        List<int> RecentDefaultNegative { get; set; }
         #endregion
     }
 }
