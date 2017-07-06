@@ -129,7 +129,7 @@ namespace ConsoleApplication9
                 {
                     points[4] = points[4] + 1;
                 }
-                if (answer == 11 || answer == 12 || answer == 13 || answer == 15 || answer == 16 || answer == 17)
+                if (answer == 11 || answer == 12 || answer == 13 || answer == 15 || answer == 16 || answer == 17 || answer == 20)
                 {
                     points[5] = points[5] + 1;
                 }

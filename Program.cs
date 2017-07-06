@@ -77,12 +77,17 @@ namespace ConsoleApplication9
             HowHappy.DataBase = XDocument.Load(@"DebateGame\normalGame\level 3\How to be happy\HowHappy.xml");
             stages.Add(HowHappy);
 
-            Stage Reason = new Stage("Reason", 4, 9, "G");
+            Stage NLP = new Stage("NLP", 3, 9, "G");
+            NLP.KeyForLevel = ConsoleKey.N;
+            NLP.DataBase = XDocument.Load(@"DebateGame\normalGame\level 3\NLP\nlp.xml");
+            stages.Add(NLP);
+
+            Stage Reason = new Stage("Reason", 4, 10, "G");
             Reason.KeyForLevel = ConsoleKey.R;
             Reason.DataBase = XDocument.Load(@"DebateGame\normalGame\level 4\Reason\Reason.xml");
             stages.Add(Reason);
 
-            Stage Freewill = new Stage("Psychology of free will", 4, 10, "G");
+            Stage Freewill = new Stage("Psychology of free will", 4, 11, "G");
             Freewill.KeyForLevel = ConsoleKey.P;
             Freewill.DataBase = XDocument.Load(@"DebateGame\normalGame\level 4\Psychology of free will\FreeWill.xml");
             stages.Add(Freewill);
@@ -141,13 +146,18 @@ namespace ConsoleApplication9
             HowHappy.HardcoreRankCondition = 4.8;
             stages.Add(HowHappy);
 
-            Stage Reason = new Stage("Reason", 4, 9, "H");
+            Stage NLP = new Stage("NLP", 3, 9, "H");
+            NLP.KeyForLevel = ConsoleKey.N;
+            NLP.DataBase = XDocument.Load(@"DebateGame\hardcoreGame\level 3\NLP\NLP.xml");
+            stages.Add(NLP);
+
+            Stage Reason = new Stage("Reason", 4, 10, "H");
             Reason.KeyForLevel = ConsoleKey.R;
             Reason.DataBase = XDocument.Load(@"DebateGame\hardcoreGame\level 4\Reason\ReasonHardcore.xml");
             Reason.HardcoreRankCondition = 7.6;
             stages.Add(Reason);
 
-            Stage Freewill = new Stage("Psychology of free will", 4, 10, "H");
+            Stage Freewill = new Stage("Psychology of free will", 4, 11, "H");
             Freewill.KeyForLevel = ConsoleKey.P;
             Freewill.DataBase = XDocument.Load(@"DebateGame\hardcoreGame\level 4\Free will\FreeWillHardcore.xml");
             Freewill.HardcoreRankCondition = 7.6;
@@ -209,13 +219,18 @@ namespace ConsoleApplication9
             HowHappy.ExplainRankCondition = 3;
             stages.Add(HowHappy);
 
-            Stage Reason = new Stage("Reason", 4, 9, "E");
+            Stage NLP = new Stage("NLP", 3, 9, "E");
+            NLP.KeyForLevel = ConsoleKey.N;
+            NLP.DataBase = XDocument.Load(@"DebateGame\ExplainGame\level 3\NLP\nlp.xml");
+            stages.Add(NLP);
+
+            Stage Reason = new Stage("Reason", 4, 10, "E");
             Reason.KeyForLevel = ConsoleKey.R;
             Reason.DataBase = XDocument.Load(@"DebateGame\ExplainGame\level 4\Reason\Reason.xml");
             Reason.ExplainRankCondition = 5;
             stages.Add(Reason);
 
-            Stage Freewill = new Stage("Psychology of free will", 4, 10, "E");
+            Stage Freewill = new Stage("Psychology of free will", 4, 11, "E");
             Freewill.KeyForLevel = ConsoleKey.P;
             Freewill.DataBase = XDocument.Load(@"DebateGame\ExplainGame\level 4\FreeWill\FreeWill.xml");
             Freewill.ExplainRankCondition = 5;
@@ -275,12 +290,17 @@ namespace ConsoleApplication9
             HowHappy.DataBase = XDocument.Load(@"DebateGame\Interaptions\level 3\HowHappy\HowHappyInteraptions.xml");
             stages.Add(HowHappy);
 
-            Stage Reason = new Stage("Reason", 4, 9, "I");
+            Stage NLP = new Stage("NLP", 3, 9, "I");
+            NLP.KeyForLevel = ConsoleKey.N;
+            NLP.DataBase = XDocument.Load(@"DebateGame\Interaptions\level 3\NLP\NLP.xml");
+            stages.Add(NLP);
+
+            Stage Reason = new Stage("Reason", 4, 10, "I");
             Reason.DataBase = XDocument.Load(@"DebateGame\Interaptions\level 4\Reason\ReasonInterpations.xml");
             Reason.KeyForLevel = ConsoleKey.R;
             stages.Add(Reason);
 
-            Stage Freewill = new Stage("Psychology of free will", 4, 10, "I");
+            Stage Freewill = new Stage("Psychology of free will", 4, 11, "I");
             Freewill.KeyForLevel = ConsoleKey.P;
             Freewill.DataBase = XDocument.Load(@"DebateGame\Interaptions\level 4\Free will\FreeWillInteraptions.xml");
             stages.Add(Freewill);

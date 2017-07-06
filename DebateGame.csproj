@@ -78,6 +78,7 @@
     <Compile Include="HardcoreGame.cs" />
     <Compile Include="HardcoreGameAnswers.cs" />
     <Compile Include="InterpationsScroll.cs" />
+    <Compile Include="Investigation.cs" />
     <Compile Include="NormalGame.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
