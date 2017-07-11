@@ -7,11 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
-using System.Xml.Serialization;
 
 namespace ConsoleApplication9
 {
-   
     public class Program
     {
         #region all the stuff the main part needs
@@ -19,6 +17,7 @@ namespace ConsoleApplication9
         #region Check the rank
         public static bool WithRank(Stage stage, double playerRank, double stageRank)
         {
+            
             if (!(playerRank >= stageRank))
             {
                 return true;
@@ -1472,7 +1471,7 @@ namespace ConsoleApplication9
 
         #region the actual main of the program
         public static void Main(string[] args)
-        {            
+        {
             /*explanations:
             1. when the player starts his 1st attempt,
             the datatime will enter a textfile
@@ -1506,7 +1505,10 @@ namespace ConsoleApplication9
                 Console.WriteLine();
             }
             */
-
+            Console.Title = "Debate Game";
+            Console.SetWindowSize(100, 50);
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.BackgroundColor = ConsoleColor.Gray;
             List<Stage> NormalLevels = new List<Stage>();
             List<Stage> HardcoreLevels = new List<Stage>();
             List<Stage> Interaptions = new List<Stage>();
@@ -1517,7 +1519,6 @@ namespace ConsoleApplication9
             ExplainLevels = ExplanationGames();
             Game NewGame = new Game();
             Player player1 = new Player();
-            
             MainMeun(NewGame, player1, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions);
         }
         #endregion

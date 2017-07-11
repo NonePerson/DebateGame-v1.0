@@ -227,6 +227,7 @@ namespace ConsoleApplication9
             bool isElseWon = false;
             int OneWon = 0;
             bool is3Won = true;
+            bool is2Won = true;
             foreach(Stage stage in normal)
             {
                 if(stage.Won)
@@ -245,6 +246,10 @@ namespace ConsoleApplication9
                 {
                     OneWon = OneWon + 1;
                 }
+                if(!stage.Won && stage.diffculty == 2)
+                {
+                    is2Won = false;
+                }
             }
             if ((count / player.highNormalRank) > 2.5) 
             {
@@ -257,6 +262,10 @@ namespace ConsoleApplication9
             if(is3Won)
             {
                 PrintFile(@"DebateGame\Tips\TIP15.txt", @"DebateGame\Tips\TIP15DONE.txt");
+            }
+            if(is2Won)
+            {
+                PrintFile(@"DebateGame\Tips\TIP16.txt", @"DebateGame\Tips\TIP16DONE.txt");
             }
         }
         public void PrintFile(string path, string createPath)
