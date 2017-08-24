@@ -27,6 +27,12 @@ F. Unfortunately, my programming abilities are not good enough to be able to cre
 If you want to "create another save" for another person,
 download the game again and extract it to somewhere else on a computer.
 
+G. You better read a bit about both deductive and inductive reasoning before playing this game,
+as the arguements you'll deal with this (and choose yourself), will sometimes be deductive,
+and sometimes inductive.
+(Specifaclly in scientific discussions, abductive reasoing exists as well,
+but it's rare and unites with inductive reasoning in its relevant contexts anyway).
+
 Now, here's how to start the game:
 
 From the folder you opened this file from,
