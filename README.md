@@ -1,4 +1,4 @@
-# DebateGame-v1.5
+# DebateGame-v1.6
 
 Here are some things you should know before opening it:
 
