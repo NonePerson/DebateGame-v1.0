@@ -5,7 +5,7 @@ Here are some things you should know before opening it:
 A. The game's mechanics are somewhat complicated, so it's not recommended to learn them by trial and error.
 There's an option via the meun main (you'll see later) that enables to you to scroll
 throught a manual written for the game,
-and when you'll enter each game mode,
+and when you'll enter each game mode for the first time,
 explanations about the mode will pop up for you.
 
 B. Whatever I say in the game:
@@ -18,20 +18,16 @@ C. The game's input is NOT case-sensetive.
 It never matters if you use capital letters or not, at any part,
 when you input anything.
 
-D. This game is meant to be educational, and it's really hard. Not recommended for anyone
+D. This game is meant to be educational, and it's very chellenging. Not recommended for anyone
 who has no intrest in philosophy and/or science.
 
 E. It is recommended to play in full screen.
 
-F. Unfortunately, my programming abilities are not good enough to be able to create different saves in 1 game.
-If you want to "create another save" for another person,
+F. If you want to "create another save" for another person,
 download the game again and extract it to somewhere else on a computer.
 
-G. You better read a bit about both deductive and inductive reasoning before playing this game,
-as the arguements you'll deal with this (and choose yourself), will sometimes be deductive,
-and sometimes inductive.
-(Specifaclly in scientific discussions, abductive reasoing exists as well,
-but it's rare and unites with inductive reasoning in its relevant contexts anyway).
+G. Your computer needs to be able to load XML files somehow,
+otherwise, the game won't work.
 
 Now, here's how to start the game:
 
