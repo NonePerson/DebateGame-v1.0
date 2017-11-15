@@ -1,11 +1,7 @@
 ﻿using System;
 using System.IO;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
 using System.Xml.Linq;
 
 namespace ConsoleApplication9
@@ -13,35 +9,40 @@ namespace ConsoleApplication9
     public class Stage
     {
         #region ctor
+
         public Stage(string stageName, int diffculty, int position, string place)
         {
-            // place = "n"/"e"/"h"
             #region initializing the propeties's values
             this.Name = stageName;
-            // only the locked and won propeties will need to be in text files
             this.Locked = true;
             this.Won = false;
-            KeyForLevel = new ConsoleKey();
-            DataBase = new XDocument();
-            Position = position;
-            this.diffculty = diffculty;
+            this.KeyForLevel = new ConsoleKey();
+            this.DataBase = new XDocument();
+            this.Position = position;
+            this.Diffculty = diffculty;
             this.NormalRankCondition = 0;
             this.HardcoreRankCondition = 0;
             this.ExplainRankCondition = 0;
-            this.mode = place;
-            MaxPoints = 0;
-            Won = mod(position, place, "won");
-            unlockable = mod(position, place, "unlock");
+            this.Mode = place;
+
+            string[] allStages = File.ReadAllLines($@"DebateGame\stages\normal.txt");
+            int howManyStages = allStages.Count();
+
+            Won = IsWonOrIsUnlockable(position, place, "won", howManyStages);
+            Unlockable = IsWonOrIsUnlockable(position, place, "unlock", howManyStages);
             #endregion
         }
         #endregion
-        public static bool mod(int position, string place, string propertie)
+
+        #region determing whatever each stage and won, or is unlockable
+
+        public static bool IsWonOrIsUnlockable(int position, string place, string propertie, int howManyStages)
         {
             string stage;
             switch (place.ToUpper())
-            { 
+            {
                 case "G":
-                        for (int i = 0; i < 11; i++)
+                        for (int i = 0; i < howManyStages; i++)
                         {
                             if (position - 1 == i)
                             {
@@ -53,7 +54,7 @@ namespace ConsoleApplication9
                 case "E":
                     if (propertie == "won")
                     {
-                        for (int i = 0; i < 11; i++)
+                        for (int i = 0; i < howManyStages; i++)
                         {
                             if (position - 1 == i)
                             {
@@ -65,14 +66,14 @@ namespace ConsoleApplication9
                     else if (propertie == "unlock")
                     {
                         string[] stages = File.ReadAllLines($@"DebateGame\stages\explainunlock.txt");
-                        string TheStage = stages[position - 1];
-                        return bool.Parse(TheStage);
+                        string theStage = stages[position - 1];
+                        return bool.Parse(theStage);
                     }
                     break;
                 case "H":
                     if (propertie == "won")
                     {
-                        for (int i = 0; i < 11; i++)
+                        for (int i = 0; i < howManyStages; i++)
                         {
                             if (position - 1 == i)
                             {
@@ -84,36 +85,40 @@ namespace ConsoleApplication9
                     else if (propertie == "unlock")
                     {
                         string[] stages = File.ReadAllLines($@"DebateGame\stages\hardcoreunlock.txt");
-                        string TheStage = stages[position - 1];
-                        return bool.Parse(TheStage);
+                        string theStage = stages[position - 1];
+                        return bool.Parse(theStage);
                     }
                     break;
                 case "I":
                     if (propertie == "unlock")
                     {
-                        string[] stages2 = File.ReadAllLines($@"DebateGame\stages\interaptionsunlock.txt");
-                        string TheStage2 = stages2[position - 1];
-                        return bool.Parse(TheStage2);
+                        string[] stages = File.ReadAllLines($@"DebateGame\stages\interaptionsunlock.txt");
+                        string TheStage = stages[position - 1];
+                        return bool.Parse(TheStage);
                     }
                     break;
             }
 
             return false;
         }
+
+        #endregion
+
         #region Properties
+
         public bool Locked { get; set; }
         public bool Won { get; set; }
         public string Name { get; set; }
         public ConsoleKey KeyForLevel { get; set; }
         public XDocument DataBase { get; set; }
-        public int diffculty { get; set; }
+        public int Diffculty { get; set; }
         public double NormalRankCondition { get; set; }
         public double HardcoreRankCondition { get; set; }
         public double ExplainRankCondition { get; set; }
-        public double MaxPoints { get; set; }
-        public string mode { get; set; }
-        public bool unlockable { get; set; }
+        public string Mode { get; set; }
+        public bool Unlockable { get; set; }
         public int Position { get; set; }
+
         #endregion
     }
 }

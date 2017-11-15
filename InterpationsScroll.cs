@@ -1,103 +1,148 @@
 ﻿using System;
 using System.IO;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
 using System.Xml.Linq;
 
 namespace ConsoleApplication9
 {
-    public class InterpationsScroll : Program
+    public class TextBookScroll : Program
     {
         #region ctor
-        public InterpationsScroll(Stage currectStage, Player player, Game NewGame)
+
+        public TextBookScroll(Stage currectStage, Player player)
         {
             DataBase = new XDocument(currectStage.DataBase);
-            screens = new List<XElement>(currectStage.DataBase.Root.Elements("Screen"));
-            recentScreen = new XElement(screens.First());
-            path = new XElement(recentScreen.Element("Path"));
+            Screens = new List<XElement>(currectStage.DataBase.Root.Elements("Screen"));
+            RecentScreen = new XElement(Screens.First());
+            Path = new XElement(RecentScreen.Element("Path"));
         }
+
         #endregion
+
         #region The actual function
-        public void next(Game NewGame, Player player, List<Stage> NormalLevels, List<Stage> ExplainLevels, List<Stage> HardcoreLevels, List<Stage> Interaptions, Stage stageI)
+
+        public void next(Player player, List<Stage> NormalLevels, List<Stage> ExplainLevels, List<Stage> HardcoreLevels, List<Stage> Interaptions, Stage stageI)
         {
             Console.Clear();
-            WritingText(path.Value);
+            WritingText(Path.Value);
             Console.WriteLine();
-            Console.WriteLine("Press 'U' to go to the next screen, or D to go to the previous screen");
+            Console.WriteLine("enter 'U' to go to the next screen, or D to go to the previous screen");
             Console.WriteLine();
-            if (stageI.mode.ToUpper() == "I")
+
+            if (stageI.Mode.ToUpper() == "I")
             {
-                Console.WriteLine("In order to view the list of moves for hardcore mode, press H");
+                Console.WriteLine("In order to view the list of moves for hardcore mode, enter H");
                 Console.WriteLine();
-                Console.WriteLine("In order to view the list of point categories with their numbers, press E");
+                Console.WriteLine("In order to view the list of moves for explain mode, enter E");
+                Console.WriteLine();
             }
+
             MainMeunMessage();
             Console.WriteLine();
-            input = Console.ReadLine();
-            Return(NewGame, player, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions, input);
-            switch (input.ToUpper())
+            Input = Console.ReadLine();
+
+            if(ShouldIReturnToMainMeun(Input))
+            {
+                return;
+            }
+
+            if (stageI.Mode.ToUpper() == "M")
+            {
+                while (Input.ToUpper() != "D" && Input.ToUpper() != "U")
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("Invalid input. Enter again: ");
+                    Console.WriteLine();
+                    Input = Console.ReadLine();
+
+                    if (ShouldIReturnToMainMeun(Input))
+                    {
+                        return;
+                    }
+                }
+
+            }
+
+            else if (stageI.Mode.ToUpper() == "I")
+            {
+                while (Input.ToUpper() != "D" && Input.ToUpper() != "U" &&
+                    Input.ToUpper() != "E" && Input.ToUpper() != "H")
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("Invalid input. Enter again: ");
+                    Console.WriteLine();
+                    Input = Console.ReadLine();
+
+                    if (ShouldIReturnToMainMeun(Input))
+                    {
+                        return;
+                    }
+                }
+            }
+
+            switch (Input.ToUpper())
             {
                 case "D":
-                    path = recentScreen.Element("PreviousScreen");
+                    Path = RecentScreen.Element("PreviousScreen");
                     break;
                 case "U":
-                    path = recentScreen.Element("NextScreen");
+                    Path = RecentScreen.Element("NextScreen");
                     break;
                 case "H":
-                    if (stageI.mode.ToUpper() == "I")
+                    if (stageI.Mode.ToUpper() == "I")
                     {
                         Console.Clear();
                         WritingText(@"DebateGame\hardcoreGame\intro.txt");
                         Console.WriteLine();
-                        Console.WriteLine("Press any key to go back to the stage");
+                        Console.WriteLine("Enter any key to go back to the stage");
                         Console.WriteLine();
                         Console.ReadLine();
-                        next(NewGame, player, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions, stageI);
+                        next(player, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions, stageI);
+                        return;
                     }
                     break;
-               case "E":
-                    if (stageI.mode.ToUpper() == "I")
+                case "E":
+                    if (stageI.Mode.ToUpper() == "I")
                     {
                         Console.Clear();
                         WritingText(@"DebateGame\ExplainGame\list.txt");
                         Console.WriteLine();
-                        Console.WriteLine("Press any key to go back to the stage");
+                        Console.WriteLine("Enter any key to go back to the stage");
                         Console.WriteLine();
                         Console.ReadLine();
-                        next(NewGame, player, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions, stageI);
+                        next(player, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions, stageI);
+                        return;
                     }
                     break;
-                default:
-                    next(NewGame, player, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions, stageI);
-                    break;
             }
-            if(path.Value == "")
+
+            if (string.IsNullOrEmpty(Path.Value))
             {
-                Return(NewGame, player, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions, "m");
+                return;
             }
-            foreach (var screen in screens)
+
+            foreach (var screen in Screens)
             {
-                if (screen.Element("Path").Value == path.Value)
+                if (screen.Element("Path").Value == Path.Value)
                 {
-                    recentScreen = screen;
+                    RecentScreen = screen;
                 }
             }
-            next(NewGame, player, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions, stageI);
+
+            next(player, NormalLevels, ExplainLevels, HardcoreLevels, Interaptions, stageI);
+
         }
-        // Return(NewGame, player, NormalLevels, HardcoreLevels, Interaptions, oneInput);
+
         #endregion
 
         #region Properties
 
-        XDocument DataBase { get; set; }
-        string input { get; set; }
-        IEnumerable<XElement> screens { get; set; }
-        XElement path { get; set; }
-        XElement recentScreen { get; set; }
+        private XDocument DataBase { get; set; }
+        private string Input { get; set; }
+        private IEnumerable<XElement> Screens { get; set; }
+        private XElement Path { get; set; }
+        private XElement RecentScreen { get; set; }
 
         #endregion
     }

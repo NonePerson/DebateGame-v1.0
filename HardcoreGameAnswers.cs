@@ -1,115 +1,84 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace ConsoleApplication9
 {
-    public class HardcoreGameAnswers
+    public class UpdatingPointsInExplainingModes
     {
-        #region useless part
-        // NOTE: Please limit the number of answers the user can sumbit, or else he might sumbit all 18
-        /* this is useless, isn't it?
-        public HardcoreGameAnswers()
-        {
-            options = new List<double>();
-            for (int i = 0; i < 18; i++)
-            {
-                options.Add(i);
-            }
-        }
-        
-        List<double> options { get; set; }
-        */
-        #endregion
-
         #region checking the player's answers list
-        public bool isTheAnswerCorrect(int currectAnswer, List<int> userAnswers)
+
+        private bool isTheAnswerCorrect(int correctAnswer, List<int> userAnswers)
         {
             foreach(int userAnswer in userAnswers)
             {
-                if(currectAnswer == userAnswer)
+                if(correctAnswer == userAnswer)
                 {
                     return true;
                 }
             }
             return false;
         }
+
         #endregion
 
         #region the 2 main functions (returning updates lists of the player's points)
-        // there is a double code here due to needing returning two lists - try to get rid of it
-        public List<int> UpdatingPositivePoints(List<int> userAnswers2, List<int> correctAnswers2, List<int> hardcoreGamePositivePoints, List<int> hardcoreGameNegativePoints, string mode)
+
+        public List<int> UpdatingPositivePoints(List<int> userAnswers, List<int> correctAnswers, List<int> gamePositivePoints, List<int> gameNegativePoints, string mode)
         {
             List<bool> matchingAnswers = new List<bool>();
-            foreach (int currectAnswer in correctAnswers2)
+            foreach (int correctAnswer in correctAnswers)
             {
-                if (isTheAnswerCorrect(currectAnswer, userAnswers2))
-                {
-                    matchingAnswers.Add(true);                    
-                }
-                else
-                {
-                    matchingAnswers.Add(false);
-                }
+                matchingAnswers.Add(isTheAnswerCorrect(correctAnswer, userAnswers));
             }
-            hardcoreGamePositivePoints = PositivePoints(userAnswers2, correctAnswers2, hardcoreGamePositivePoints, matchingAnswers, mode);
-            return hardcoreGamePositivePoints;
+            gamePositivePoints = PositivePoints(userAnswers, correctAnswers, gamePositivePoints, matchingAnswers, mode);
+            return gamePositivePoints;
         }
-        public List<int> UpdatingNegativePoints(List<int> userAnswers2, List<int> correctAnswers2, List<int> hardcoreGamePositivePoints, List<int> hardcoreGameNegativePoints, string mode)
+
+        public List<int> UpdatingNegativePoints(List<int> userAnswers, List<int> correctAnswers, List<int> gamePositivePoints, List<int> gameNegativePoints, string mode)
         {
             List<bool> matchingAnswers = new List<bool>();
-            foreach (int currectAnswer in correctAnswers2)
+            foreach (int correctAnswer in correctAnswers)
             {
-                if (isTheAnswerCorrect(currectAnswer, userAnswers2))
-                {
-                    matchingAnswers.Add(true);
-                }
-                else
-                {
-                    matchingAnswers.Add(false);
-                }
+                matchingAnswers.Add(isTheAnswerCorrect(correctAnswer, userAnswers));
             }
-            hardcoreGameNegativePoints = NegativePoints(userAnswers2, correctAnswers2, hardcoreGameNegativePoints, matchingAnswers, mode);
-            return hardcoreGameNegativePoints;
+            gameNegativePoints = NegativePoints(userAnswers, correctAnswers, gameNegativePoints, matchingAnswers, mode);
+            return gameNegativePoints;
         }
+
         #endregion
 
         #region the 2 functions that do the actual update
-        public List<int> PositivePoints(List<int> userAnswers2, List<int> correctAnswers2, List<int> hardcoreGamePositivePoints, List<bool> matchingAnswers, string mode)
+        private List<int> PositivePoints(List<int> userAnswers, List<int> correctAnswers, List<int> gamePositivePoints, List<bool> matchingAnswers, string mode)
         {
             for(int i = 0; i < matchingAnswers.Count; i++)
             {
                 if(matchingAnswers[i])
                 {
-                    hardcoreGamePositivePoints = PlayerPoints(hardcoreGamePositivePoints, userAnswers2[i], mode);
+                    gamePositivePoints = PlayerPoints(gamePositivePoints, userAnswers[i], mode);
                 }                          
             }
-            return hardcoreGamePositivePoints;
+            return gamePositivePoints;
         }
-        public List<int> NegativePoints(List<int> userAnswers2, List<int> correctAnswers2, List<int> hardcoreGameNegativePoints, List<bool> matchingAnswers, string mode)
+        private List<int> NegativePoints(List<int> userAnswers, List<int> correctAnswers, List<int> gameNegativePoints, List<bool> matchingAnswers, string mode)
         {
             for (int i = 0; i < matchingAnswers.Count; i++)
             {
                 if (!matchingAnswers[i])
                 {
-                    PlayerPoints(hardcoreGameNegativePoints, userAnswers2[i], mode);
-                    PlayerPoints(hardcoreGameNegativePoints, correctAnswers2[i], mode);
-                    
-                    //hardcoreGameNegativePoints[0] += 2;
+                    gameNegativePoints = PlayerPoints(gameNegativePoints, userAnswers[i], mode);
+                    gameNegativePoints = PlayerPoints(gameNegativePoints, correctAnswers[i], mode);     
                 }
             }
-            return hardcoreGameNegativePoints;
+            return gameNegativePoints;
         }
         #endregion
 
         #region checking each answer's belonging to the point categories
-        public List<int> PlayerPoints(List<int> points, int answer, string mode)
+
+        private List<int> PlayerPoints(List<int> points, int answer, string mode)
         {
             if (mode.ToUpper() == "H")
             {
-                if (answer == 3 || answer == 10)
+                if (answer == 3 || answer == 10 || answer == 16)
                 {
                     points[0] = points[0] + 1;
                 }
@@ -117,19 +86,19 @@ namespace ConsoleApplication9
                 {
                     points[1] = points[1] + 1;
                 }
-                if (answer == 2 || answer == 7 || answer == 8 || answer == 9)
+                if (answer == 2 || answer == 7 || answer == 8 || answer == 9 || answer == 6)
                 {
                     points[2] = points[2] + 1;
                 }
-                if (answer == 1 || answer == 5 || answer == 6)
+                if (answer == 1 || answer == 5)
                 {
                     points[3] = points[3] + 1;
                 }
-                if (answer == 14 || answer == 18 || answer == 19)
+                if (answer == 14 || answer == 18 || answer == 19 || answer == 16)
                 {
                     points[4] = points[4] + 1;
                 }
-                if (answer == 11 || answer == 12 || answer == 13 || answer == 15 || answer == 16 || answer == 17 || answer == 20)
+                if (answer == 11 || answer == 12 || answer == 13 || answer == 15 || answer == 17 || answer == 20)
                 {
                     points[5] = points[5] + 1;
                 }
@@ -141,8 +110,10 @@ namespace ConsoleApplication9
                 points[answer] = points[answer] + 1;
                 return points;
             }
+
             return points;
         }
+
         #endregion
     }
 }

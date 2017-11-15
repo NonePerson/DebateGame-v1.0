@@ -72,13 +72,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BossGame.cs" />
     <Compile Include="ExplainGame.cs" />
-    <Compile Include="Game.cs" />
     <Compile Include="HardcoreGame.cs" />
     <Compile Include="HardcoreGameAnswers.cs" />
     <Compile Include="InterpationsScroll.cs" />
-    <Compile Include="Investigation.cs" />
     <Compile Include="NormalGame.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
@@ -101,7 +98,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="bin\Debug\" />
+    <Folder Include="bin\Debug\DebateGame\ExplainGame\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
